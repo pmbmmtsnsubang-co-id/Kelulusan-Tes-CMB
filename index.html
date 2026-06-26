@@ -9,11 +9,12 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --hijau: #1B5E3B; --hijau-mid: #256B45; --hijau-light: #EAF4EE;
-      --gold: #C9A227; --gold-light: #F7EFC3; --putih: #FFFFFF;
+      --gold: #C9A227; --putih: #FFFFFF;
       --abu: #5A5A5A; --hitam: #1A1A1A;
     }
     body { font-family: 'Inter', sans-serif; background: #F5F7F5; color: var(--hitam); min-height: 100vh; }
 
+    /* ── HEADER ── */
     header { background: var(--hijau); color: white; position: relative; overflow: hidden; }
     .header-ornament {
       position: absolute; inset: 0;
@@ -28,8 +29,62 @@
     .header-text .badge { display:inline-block; margin-top:8px; background:var(--gold); color:var(--hijau); font-weight:700; font-size:11px; padding:3px 10px; border-radius:20px; }
     .gold-strip { background:var(--gold); height:4px; }
 
-    .container { max-width:960px; margin:0 auto; padding:0 20px; }
+    /* ── RUNNING TEXT ── */
+    .running-text-bar {
+      background: var(--hijau);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border-bottom: 3px solid var(--gold);
+    }
+    .rt-label {
+      flex-shrink: 0;
+      background: var(--gold);
+      color: var(--hijau);
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 9px 16px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      position: relative;
+      z-index: 2;
+    }
+    .rt-label::after {
+      content: '';
+      position: absolute;
+      right: -13px;
+      top: 0;
+      width: 0; height: 0;
+      border-top: 36px solid transparent;
+      border-left: 13px solid var(--gold);
+    }
+    .rt-ticker {
+      flex: 1;
+      overflow: hidden;
+      padding: 0 20px 0 26px;
+    }
+    .rt-ticker-inner {
+      display: inline-block;
+      white-space: nowrap;
+      animation: ticker 35s linear infinite;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 0;
+    }
+    .rt-ticker-inner:hover { animation-play-state: paused; }
+    .rt-ticker-inner .sep { color: var(--gold); margin: 0 20px; font-size: 10px; }
+    .rt-ticker-inner .hl { color: var(--gold); font-weight: 700; }
+    @keyframes ticker {
+      0%   { transform: translateX(100vw); }
+      100% { transform: translateX(-100%); }
+    }
 
+    /* ── CONTENT ── */
+    .container { max-width:960px; margin:0 auto; padding:0 20px; }
     .pengumuman { margin-top:28px; }
     .pengumuman-box { background:white; border-left:5px solid var(--gold); border-radius:0 12px 12px 0; padding:20px 24px; box-shadow:0 2px 12px rgba(0,0,0,.07); }
     .pengumuman-box .label { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--gold); font-weight:700; margin-bottom:6px; }
@@ -40,6 +95,7 @@
     .info-item .il { font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--hijau); font-weight:700; }
     .info-item .iv { font-size:13.5px; font-weight:600; color:var(--hitam); margin-top:3px; }
 
+    /* ── SEARCH ── */
     .search-section { margin-top:24px; }
     .search-box { background:white; border-radius:14px; padding:24px; box-shadow:0 2px 16px rgba(0,0,0,.08); }
     .search-box h3 { font-family:'Playfair Display',serif; font-size:17px; color:var(--hijau); margin-bottom:14px; }
@@ -50,6 +106,7 @@
     .btn-cari:hover { background:var(--hijau-mid); }
     .err { margin-top:10px; font-size:13px; color:#C0392B; display:none; }
 
+    /* ── RESULTS ── */
     .results-section { margin-top:20px; display:none; }
     .results-section.visible { display:block; }
     .results-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px; }
@@ -64,7 +121,7 @@
     td.no { width:46px; color:var(--abu); font-weight:600; text-align:center; }
     td.nama { font-weight:700; color:var(--hitam); }
     td.asal { color:var(--abu); font-size:12.5px; }
-    .btn-unduh { display:inline-flex; align-items:center; gap:5px; padding:6px 14px; background:var(--gold); color:var(--hijau); border:none; border-radius:6px; font-size:12px; font-weight:700; font-family:'Inter',sans-serif; text-decoration:none; transition:background .2s; white-space:nowrap; cursor:pointer; }
+    .btn-unduh { display:inline-flex; align-items:center; gap:5px; padding:6px 14px; background:var(--gold); color:var(--hijau); border:none; border-radius:6px; font-size:12px; font-weight:700; font-family:'Inter',sans-serif; text-decoration:none; transition:background .2s; white-space:nowrap; }
     .btn-unduh:hover { background:#b8911f; color:white; }
 
     .toggle-all { margin-top:16px; text-align:center; padding-bottom:40px; }
@@ -77,6 +134,7 @@
     @media(max-width:600px) {
       .header-inner { flex-direction:column; text-align:center; }
       thead th:nth-child(3), tbody td:nth-child(3) { display:none; }
+      .rt-label { font-size:10px; padding:8px 10px; }
     }
   </style>
 </head>
@@ -94,6 +152,21 @@
   </div>
 </header>
 <div class="gold-strip"></div>
+
+<!-- RUNNING TEXT -->
+<div class="running-text-bar">
+  <div class="rt-label">📢 Pengumuman</div>
+  <div class="rt-ticker">
+    <span class="rt-ticker-inner">
+      🎉 Selamat kepada seluruh peserta yang dinyatakan <span class="hl">LULUS</span> Tes Calon Murid Baru (CMB) MTsN 3 Subang Tahun Pelajaran 2026/2027!
+      <span class="sep">✦</span>
+      Silakan cari nama Anda di kolom pencarian dan klik tombol <span class="hl">Unduh Surat</span> untuk mengunduh Surat Kelulusan Anda.
+      <span class="sep">✦</span>
+      Selamat bergabung di MTsN 3 Subang — Madrasah Unggul, Berkarakter, dan Berprestasi! 🏫
+      <span class="sep">✦</span>
+    </span>
+  </div>
+</div>
 
 <div class="container">
   <div class="pengumuman">
@@ -1750,19 +1823,15 @@ function cari() {
   const err = document.getElementById('errMsg');
   const sec = document.getElementById('resultsSection');
   err.style.display = 'none';
-
   if (!q) { tampilSemua(); return; }
-
   const hasil = dataPeserta.filter(p =>
     p.nama.toUpperCase().includes(q) || p.asal.toUpperCase().includes(q)
   );
-
   if (hasil.length === 0) {
     err.style.display = 'block';
     sec.classList.remove('visible');
     return;
   }
-
   document.getElementById('resultsTitle').textContent = 'Hasil: "' + document.getElementById('inputCari').value.trim() + '"';
   document.getElementById('badgeCount').textContent = hasil.length + ' ditemukan';
   renderRows(hasil, document.getElementById('inputCari').value.trim());
